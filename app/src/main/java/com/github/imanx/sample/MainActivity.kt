@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val view = state_view.getStateView(StateLayout.State.Empty)
-        view.findViewById<TextView>(R.id.txt_view).text = "EMPTYYYYYYY is here"
+        view.findViewById<TextView>(R.id.txt_view).text = "No Content for display :( "
 
 
     }
