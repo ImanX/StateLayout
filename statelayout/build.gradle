@@ -51,10 +51,9 @@ android {
     group = "com.github.imanx"
 
     bintray {
-
         pkg {
 
-            repo = 'statelayout'
+            repo = 'StateLayout'
             name = 'StateLayout'
             userOrg = 'imansoft'
 
