@@ -19,9 +19,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-
-
-
         state_view.postDelayed({
             val random = Random().nextInt(3) + 1;
             when (random) {

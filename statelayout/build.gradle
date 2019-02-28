@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 28
@@ -22,13 +24,58 @@ android {
         }
     }
 
+    task generateSourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier 'sources'
+    }
+
+    task generateJavadocs(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath()
+                .join(File.pathSeparator))
+    }
+
+    task generateJavadocsJar(type: Jar) {
+        from generateJavadocs.destinationDir
+        classifier 'javadoc'
+    }
+
+
+
+    artifacts {
+        archives generateJavadocsJar
+        archives generateSourcesJar
+    }
+
+    version = "0.0.1"
+    group = "com.github.imanx"
+
+    bintray {
+
+        pkg {
+
+            repo = 'statelayout'
+            name = 'StateLayout'
+            userOrg = 'imansoft'
+
+            version {
+                name = "0.0.1"
+                released = new Date()
+                vcsTag = "0.0.1"
+            }
+
+            licenses = ['Apache-2.0']
+            vcsUrl = 'https://github.com/ImanX/StateLayout'
+            websiteUrl = 'https://github.com/ImanX'
+        }
+        configurations = ['archives']
+    }
+
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
 }
