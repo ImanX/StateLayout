@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.github.imanx.StateLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         state_view.postDelayed({
             val random = Random().nextInt(3) + 1;
-            when (1) {
+            when (random) {
                 1 -> {
                     state_view.setState(StateLayout.State.Normal);
                     list.adapter = Adapter(this);
@@ -43,46 +44,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    class Adapter(context: Context) : ArrayAdapter<String>(context, R.layout.item) {
+    class Adapter(context: Context) : ArrayAdapter<Int>(context, R.layout.item) {
 
-        var items = intArrayOf(
-            10,
-            20,
-            30,
-            40,
-            50,
-            3,
-            4,
-            5,
-            6,
-            10,
-            20,
-            30,
-            40,
-            50,
-            3,
-            4,
-            5,
-            6,
-            10,
-            20,
-            30,
-            40,
-            50,
-            3,
-            4,
-            5,
-            6,
-            10,
-            20,
-            30,
-            40,
-            50,
-            3,
-            4,
-            5,
-            6
-        );
+        var items = ArrayList<Int>();
+
+        init {
+            for (i in 0..1000) {
+                items.add(i);
+            }
+        }
+
 
         override fun getCount(): Int {
             return items.size;
@@ -92,10 +63,11 @@ class MainActivity : AppCompatActivity() {
             var view = convertView;
             if (view == null) {
                 view = View.inflate(context, R.layout.item, null);
-                val txt = view!!.findViewById<TextView>(R.id.txt_view);
-                txt.text = "Item ${items[position]}"
 
             }
+
+            val txt = view!!.findViewById<TextView>(R.id.txt_view);
+            txt.text = "Item ${items.get(position)}"
 
             return view;
 

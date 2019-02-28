@@ -5,8 +5,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <ImageView android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:src="@drawable/ic_info_black_48dp"/>
+
+
     <TextView android:layout_width="match_parent"
-              android:text="EMPTY"
+              android:text="No Content for Show!"
               android:id="@+id/txt_view"
               android:gravity="center"
               android:layout_height="wrap_content"/>
