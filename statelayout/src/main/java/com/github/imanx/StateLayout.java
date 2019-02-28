@@ -121,15 +121,16 @@ public class StateLayout extends FrameLayout {
 
         int positionOfState = state.ordinal();
 
-        if (listener != null) {
-            listener.onChangeState(stateViews[positionOfState], state, positionOfState);
-        }
+
 
         if (state == State.Normal) {
             visibleContentView();
             return;
         }
 
+        if (listener != null) {
+            listener.onChangeState(stateViews[positionOfState], state, positionOfState);
+        }
 
         invisibleContentViews();
         currentView = stateViews[positionOfState];

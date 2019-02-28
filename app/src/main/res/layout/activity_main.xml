@@ -20,7 +20,6 @@
                   android:gravity="center"
                   android:layout_height="match_parent">
 
-        <ImageView android:layout_width="100dp" android:layout_height="100dp" android:src="@drawable/ic_info_black_48dp"/>
 
 
         <ListView android:layout_width="match_parent"
