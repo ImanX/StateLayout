@@ -166,6 +166,8 @@ public class StateLayout extends FrameLayout {
         int children = getChildCount() - 1;
         while (children >= 0) {
             View view = getChildAt(children);
+            children--;
+
 
             if (view == null) {
                 continue;
@@ -182,7 +184,7 @@ public class StateLayout extends FrameLayout {
             }
 
             view.setVisibility(VISIBLE);
-            children--;
+
         }
     }
 

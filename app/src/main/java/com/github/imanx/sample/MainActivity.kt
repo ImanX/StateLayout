@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         state_view.postDelayed({
             val random = Random().nextInt(3) + 1;
-            when (random) {
+            when (2) {
                 1 -> {
                     state_view.setState(State.Normal);
                     list.adapter = Adapter(this);
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 3 -> state_view.setState(State.Failure);
             }
 
-        }, 4 * 1000);
+        }, 2 * 1000);
 
 
         val view = state_view.getStateView(State.Empty)
