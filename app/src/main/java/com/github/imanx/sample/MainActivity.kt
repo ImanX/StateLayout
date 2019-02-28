@@ -21,18 +21,15 @@ class MainActivity : AppCompatActivity() {
 
         state_view.postDelayed({
             val random = Random().nextInt(3) + 1;
-            when (random) {
+            when (1) {
                 1 -> {
-
-
                     state_view.setState(StateLayout.State.Normal);
                     list.adapter = Adapter(this);
                 }
 
                 2 -> {
                     state_view.setState(StateLayout.State.Empty);
-                    val view = state_view.getStateView(StateLayout.State.Empty)
-                    view.findViewById<TextView>(R.id.txt_view).text = "EMPTYYYYYYY is here"
+
                 }
                 3 -> state_view.setState(StateLayout.State.Failure);
             }
@@ -40,11 +37,52 @@ class MainActivity : AppCompatActivity() {
         }, 4 * 1000);
 
 
+        val view = state_view.getStateView(StateLayout.State.Empty)
+        view.findViewById<TextView>(R.id.txt_view).text = "EMPTYYYYYYY is here"
+
+
     }
 
     class Adapter(context: Context) : ArrayAdapter<String>(context, R.layout.item) {
 
-        var items = intArrayOf(10, 20, 30, 40, 50, 3, 4, 5, 6);
+        var items = intArrayOf(
+            10,
+            20,
+            30,
+            40,
+            50,
+            3,
+            4,
+            5,
+            6,
+            10,
+            20,
+            30,
+            40,
+            50,
+            3,
+            4,
+            5,
+            6,
+            10,
+            20,
+            30,
+            40,
+            50,
+            3,
+            4,
+            5,
+            6,
+            10,
+            20,
+            30,
+            40,
+            50,
+            3,
+            4,
+            5,
+            6
+        );
 
         override fun getCount(): Int {
             return items.size;
