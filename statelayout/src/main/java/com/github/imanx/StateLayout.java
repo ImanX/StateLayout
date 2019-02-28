@@ -1,6 +1,5 @@
 package com.github.imanx;
 
-import android.animation.Animator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -32,6 +31,7 @@ public class StateLayout extends FrameLayout {
     public static final int STATE_LOADING = 0;
     public static final int STATE_FAILURE = 1;
     public static final int STATE_EMPTY = 2;
+    private OnChangeStateViewListener listener;
 
 
     public StateLayout(@NonNull Context context) {
@@ -110,8 +110,7 @@ public class StateLayout extends FrameLayout {
 
 
         if (defaultState != -1) {
-            invisibleViews();
-            addView(stateViews[defaultState], 0);
+            setState(State.Normal);
         }
 
 
@@ -119,20 +118,30 @@ public class StateLayout extends FrameLayout {
 
     public void setState(State state) {
 
+        int positionOfState = state.ordinal();
+
+        if (listener != null) {
+            listener.onChangeState(stateViews[positionOfState], state, positionOfState);
+        }
+
         if (state == State.Normal) {
-            returnViews();
+            visibleContentView();
             return;
         }
 
 
-        invisibleViews();
-        currentView = stateViews[state.ordinal()];
-        addView(stateViews[state.ordinal()]);
+        invisibleContentViews();
+        currentView = stateViews[positionOfState];
+        addView(currentView);
 
     }
 
     public View getStateView(State state) {
         return stateViews[state.ordinal()];
+    }
+
+    public void setOnChangeStateListener(OnChangeStateViewListener listener) {
+        this.listener = listener;
     }
 
     @Nullable
@@ -141,7 +150,7 @@ public class StateLayout extends FrameLayout {
     }
 
 
-    private void invisibleViews() {
+    private void invisibleContentViews() {
         int children = getChildCount() - 1;
         while (children >= 0) {
             View view = getChildAt(children);
@@ -150,7 +159,7 @@ public class StateLayout extends FrameLayout {
         }
     }
 
-    private void returnViews() {
+    private void visibleContentView() {
 
         int children = getChildCount() - 1;
         while (children >= 0) {
@@ -181,8 +190,8 @@ public class StateLayout extends FrameLayout {
         if (hasFadeAnimation) {
             animation.run(child, fadAnimationDuration);
         }
-        StateLayout.super.addView(child);
 
+        super.addView(child);
     }
 
     public enum State {
