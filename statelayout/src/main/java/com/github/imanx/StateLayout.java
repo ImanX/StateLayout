@@ -110,11 +110,12 @@ public class StateLayout extends FrameLayout {
 
 
         if (defaultState != -1) {
-            setState(State.Normal);
+            setState(State.getState(defaultState));
         }
 
 
     }
+
 
     public void setState(State state) {
 
@@ -194,12 +195,6 @@ public class StateLayout extends FrameLayout {
         super.addView(child);
     }
 
-    public enum State {
-        Loading,
-        Failure,
-        Empty,
-        Normal
-    }
 
 
 }

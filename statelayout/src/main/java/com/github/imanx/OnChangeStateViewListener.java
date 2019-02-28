@@ -7,5 +7,5 @@ import android.view.View;
  * sample | Copyrights 2019 ZarinPal Crop.
  */
 public interface OnChangeStateViewListener {
-    void onChangeState(View view, StateLayout.State state, int d);
+    void onChangeState(View view, State state, int d);
 }

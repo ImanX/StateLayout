@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import com.github.imanx.State
 import com.github.imanx.StateLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -24,22 +26,27 @@ class MainActivity : AppCompatActivity() {
             val random = Random().nextInt(3) + 1;
             when (random) {
                 1 -> {
-                    state_view.setState(StateLayout.State.Normal);
+                    state_view.setState(State.Normal);
                     list.adapter = Adapter(this);
                 }
 
                 2 -> {
-                    state_view.setState(StateLayout.State.Empty);
+                    state_view.setState(State.Empty);
 
                 }
-                3 -> state_view.setState(StateLayout.State.Failure);
+                3 -> state_view.setState(State.Failure);
             }
 
         }, 4 * 1000);
 
 
-        val view = state_view.getStateView(StateLayout.State.Empty)
+        val view = state_view.getStateView(State.Empty)
         view.findViewById<TextView>(R.id.txt_view).text = "No Content for display :( "
+
+
+        state_view.setOnChangeStateListener { view, state, d ->
+            Log.i("TAG" ,"state $state $d");
+        }
 
 
     }
