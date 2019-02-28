@@ -4,6 +4,8 @@
         <attr name="statelayout_loading_view" format="reference"/>
         <attr name="statelayout_empty_view" format="reference"/>
         <attr name="statelayout_failure_view" format="reference"/>
+        <attr name="statelayout_has_fade" format="boolean"/>
+        <attr name="statelayout_fade_duration" format="float"/>
         <attr name="statelayout_default_view" format="enum">
             <enum name="loading_state" value="0"/>
             <enum name="failure_state" value="1"/>

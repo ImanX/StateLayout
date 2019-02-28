@@ -5,9 +5,11 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+
+    <ImageView android:layout_width="200dp" android:layout_height="200dp" android:src="@color/colorAccent"/>
+
     <TextView android:layout_width="match_parent"
-              android:text="EMPTY"
-              android:id="@+id/txt_view"
+              android:text="Failure"
               android:gravity="center"
               android:layout_height="wrap_content"/>
 

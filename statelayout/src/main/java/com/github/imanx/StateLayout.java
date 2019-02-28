@@ -1,5 +1,6 @@
 package com.github.imanx;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -7,14 +8,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ImanX.
@@ -23,9 +20,11 @@ import java.util.List;
 public class StateLayout extends FrameLayout {
 
 
-    private List<View> viewCache = new ArrayList<>();
     private View[] stateViews = new View[3];
+    private Animation animation = new Animation();
     private int defaultState;
+    private boolean hasFadeAnimation;
+    private long fadAnimationDuration;
     private View currentView;
 
 
@@ -33,6 +32,7 @@ public class StateLayout extends FrameLayout {
     public static final int STATE_LOADING = 0;
     public static final int STATE_FAILURE = 1;
     public static final int STATE_EMPTY = 2;
+
 
     public StateLayout(@NonNull Context context) {
         super(context);
@@ -62,7 +62,9 @@ public class StateLayout extends FrameLayout {
         int loadingLayout = array.getResourceId(R.styleable.StateLayout_statelayout_loading_view, 0);
         int emptyLayout = array.getResourceId(R.styleable.StateLayout_statelayout_empty_view, 0);
         int failureLayout = array.getResourceId(R.styleable.StateLayout_statelayout_failure_view, 0);
-        defaultState = array.getInt(R.styleable.StateLayout_statelayout_default_view, -1);
+        this.defaultState = array.getInt(R.styleable.StateLayout_statelayout_default_view, -1);
+        this.hasFadeAnimation = array.getBoolean(R.styleable.StateLayout_statelayout_has_fade, true);
+        this.fadAnimationDuration = (long) array.getFloat(R.styleable.StateLayout_statelayout_fade_duration, 500);
 
 
         LayoutParams params = new FrameLayout.LayoutParams
@@ -101,9 +103,14 @@ public class StateLayout extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        Log.i("TAG", "onFinishInflate " + defaultState);
+
+        if (isInEditMode()) {
+            return;
+        }
+
+
         if (defaultState != -1) {
-            removeViews();
+            invisibleViews();
             addView(stateViews[defaultState], 0);
         }
 
@@ -111,7 +118,14 @@ public class StateLayout extends FrameLayout {
     }
 
     public void setState(State state) {
-        removeViews();
+
+        if (state == State.Normal) {
+            returnViews();
+            return;
+        }
+
+
+        invisibleViews();
         currentView = stateViews[state.ordinal()];
         addView(stateViews[state.ordinal()]);
 
@@ -127,21 +141,55 @@ public class StateLayout extends FrameLayout {
     }
 
 
-    private void removeViews() {
-        int children = getChildCount();
+    private void invisibleViews() {
+        int children = getChildCount() - 1;
         while (children >= 0) {
             View view = getChildAt(children);
-            this.viewCache.add(view);
-            removeView(view);
+            view.setVisibility(GONE);
+            children--;
+        }
+    }
+
+    private void returnViews() {
+
+        int children = getChildCount() - 1;
+        while (children >= 0) {
+            View view = getChildAt(children);
+
+            if (view == null) {
+                continue;
+            }
+
+            if ((view.getTag() != null) && (view.getTag() instanceof Integer) && ((int) view.getTag() == VIEW_TAG)) {
+                removeView(view);
+                continue;
+            }
+
+
+            if (hasFadeAnimation) {
+                animation.run(view, fadAnimationDuration);
+            }
+
+            view.setVisibility(VISIBLE);
             children--;
         }
     }
 
 
+    @Override
+    public void addView(final View child) {
+        if (hasFadeAnimation) {
+            animation.run(child, fadAnimationDuration);
+        }
+        StateLayout.super.addView(child);
+
+    }
+
     public enum State {
         Loading,
         Failure,
         Empty,
+        Normal
     }
 
 
