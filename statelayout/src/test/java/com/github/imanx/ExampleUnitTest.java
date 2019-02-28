@@ -1,4 +1,4 @@
-package com.github.statelayout;
+package com.github.imanx;
 
 import org.junit.Test;
 

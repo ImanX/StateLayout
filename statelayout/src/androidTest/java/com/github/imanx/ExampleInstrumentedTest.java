@@ -1,4 +1,4 @@
-package com.github.statelayout;
+package com.github.imanx;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.github.statelayout.test", appContext.getPackageName());
+        assertEquals("com.github.imanx.test", appContext.getPackageName());
     }
 }
