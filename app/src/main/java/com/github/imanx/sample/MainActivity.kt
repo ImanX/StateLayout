@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         state_view.postDelayed({
             val random = Random().nextInt(3) + 1;
-            when (3) {
+            when (1) {
                 1 -> {
                     state_view.setState(State.Normal);
                     list.adapter = Adapter(this);
