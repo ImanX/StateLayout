@@ -1,6 +1,5 @@
 package com.github.imanx.sample
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
 import com.github.imanx.State
-import com.github.imanx.StateLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList

@@ -47,7 +47,7 @@ android {
         archives generateSourcesJar
     }
 
-    version = "0.0.5"
+    version = "0.0.6"
     group = "com.github.imanx"
 
     bintray {
@@ -61,9 +61,9 @@ android {
             userOrg = 'imansoft'
 
             version {
-                name = "0.0.5"
+                name = "0.0.6"
                 released = new Date()
-                vcsTag = "0.0.5"
+                vcsTag = "0.0.6"
             }
 
             licenses = ['Apache-2.0']
