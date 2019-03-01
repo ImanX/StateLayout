@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.TextView
 import com.github.imanx.State
 import com.github.imanx.StateLayout
@@ -22,9 +23,33 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+        doWork();
+
+        val view = state_view.getStateView(State.Empty)
+        view.findViewById<TextView>(R.id.txt_view).text = "No Content for display :( "
+
+
+        val failureView = state_view.getStateView(State.Failure);
+        failureView.findViewById<Button>(R.id.btn).setOnClickListener {
+            state_view.setState(State.Loading);
+            doWork();
+
+        }
+
+
+        state_view.setOnChangeStateListener { view, state, d ->
+            Log.i("TAG", "state $state $d");
+        }
+
+
+    }
+
+
+    fun doWork() {
+
         state_view.postDelayed({
             val random = Random().nextInt(3) + 1;
-            when (2) {
+            when (3) {
                 1 -> {
                     state_view.setState(State.Normal);
                     list.adapter = Adapter(this);
@@ -38,16 +63,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }, 2 * 1000);
-
-
-        val view = state_view.getStateView(State.Empty)
-        view.findViewById<TextView>(R.id.txt_view).text = "No Content for display :( "
-
-
-        state_view.setOnChangeStateListener { view, state, d ->
-            Log.i("TAG" ,"state $state $d");
-        }
-
 
     }
 

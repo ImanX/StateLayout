@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -75,22 +76,24 @@ public class StateLayout extends FrameLayout {
         params.gravity = Gravity.CENTER;
 
 
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+
         if (loadingLayout != 0) {
-            View view = View.inflate(context, loadingLayout, null);
+            View view = inflater.inflate(loadingLayout, this, false);
             view.setLayoutParams(params);
             view.setTag(VIEW_TAG);
             this.stateViews[STATE_LOADING] = view;
         }
 
         if (emptyLayout != 0) {
-            View view = View.inflate(context, emptyLayout, null);
+            View view = inflater.inflate(emptyLayout, this, false);
             view.setLayoutParams(params);
             view.setTag(VIEW_TAG);
             this.stateViews[STATE_EMPTY] = view;
         }
 
         if (failureLayout != 0) {
-            View view = View.inflate(context, failureLayout, null);
+            View view = inflater.inflate(failureLayout, this, false);
             view.setLayoutParams(params);
             view.setTag(VIEW_TAG);
             this.stateViews[STATE_FAILURE] = view;
@@ -122,9 +125,8 @@ public class StateLayout extends FrameLayout {
         int positionOfState = state.ordinal();
 
 
-
         if (state == State.Normal) {
-            visibleContentView();
+            controlVisibilityViews(true);
             return;
         }
 
@@ -132,7 +134,7 @@ public class StateLayout extends FrameLayout {
             listener.onChangeState(stateViews[positionOfState], state, positionOfState);
         }
 
-        invisibleContentViews();
+        controlVisibilityViews(false);
         currentView = stateViews[positionOfState];
         addView(currentView);
 
@@ -152,16 +154,22 @@ public class StateLayout extends FrameLayout {
     }
 
 
-    private void invisibleContentViews() {
-        int children = getChildCount() - 1;
-        while (children >= 0) {
-            View view = getChildAt(children);
-            view.setVisibility(GONE);
-            children--;
-        }
-    }
+//    private void invisibleContentViews() {
+//        int children = getChildCount() - 1;
+//        while (children >= 0) {
+//            View view = getChildAt(children);
+//            children--;
+//
+//            if ((view.getTag() != null) && (view.getTag() instanceof Integer) && ((int) view.getTag() == VIEW_TAG)) {
+//                removeView(view);
+//                continue;
+//            }
+//
+//            view.setVisibility(GONE);
+//        }
+//    }
 
-    private void visibleContentView() {
+    private void controlVisibilityViews(boolean isVisible) {
 
         int children = getChildCount() - 1;
         while (children >= 0) {
@@ -183,7 +191,7 @@ public class StateLayout extends FrameLayout {
                 animation.run(view, fadAnimationDuration);
             }
 
-            view.setVisibility(VISIBLE);
+            view.setVisibility(isVisible ? VISIBLE : GONE);
 
         }
     }
@@ -197,7 +205,6 @@ public class StateLayout extends FrameLayout {
 
         super.addView(child);
     }
-
 
 
 }
