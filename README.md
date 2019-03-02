@@ -27,7 +27,7 @@ implementation 'com.github.imanx:statelayout:0.0.6'
 
 # Usage
 
-You should create layouts for `empty`, `failure`, `loading` and define to `StateLayout` xml
+You should create your desire layouts for `empty`, `failure`, `loading` statuses and put them all in to `StateLayout` xml file.
 
 ```xml
 
