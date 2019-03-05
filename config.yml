@@ -1,0 +1,17 @@
+general:
+    artifacts:
+        - /Users/imanx/Desktop/apps/build/outputs/apk/
+
+machine:
+    environment:
+        ANDROID_HOME: /Library/Android-SDK/Android/sdk
+
+dependencies:
+    override:
+        - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-28,android-28,extra-google-m2repository,extra-google-google_play_services,extra-android-support
+        - ANDROID_HOME=/Library/Android-SDK/Android/sdk ./gradlew dependencies
+
+test:
+    override:
+        - (./gradlew assemble):
+            timeout: 360
