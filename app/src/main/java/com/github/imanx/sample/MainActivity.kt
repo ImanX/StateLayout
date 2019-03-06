@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+
         doWork();
 
         val view = state_view.getStateView(State.Empty)
