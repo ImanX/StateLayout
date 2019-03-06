@@ -40,11 +40,11 @@ jobs:
           path: app/build/test-results
       - run:
           name: Run Data Module Unit Tests
-          command: ./gradlew :data:testDebugUnitTest
+          command: ./gradlew :app:testDebugUnitTest
       - store_artifacts:
-          path: data/build/reports
+          path: app/build/reports
       - store_test_results:
-          path: data/build/test-results
+          path: app/build/test-results
       - run:
           name: Run Lint Test
           command: ./gradlew lint
