@@ -55,4 +55,4 @@ jobs:
           command: ./gradlew clean assembleRelease --no-daemon --stacktrace
       - store_artifacts:
           path: app/build/outputs/apk/
-         destination: apks/
+          destination: apks/
