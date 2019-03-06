@@ -28,9 +28,9 @@ jobs:
           name: Run Presentation Module Unit Tests
           command: ./gradlew :presentation:testDebugUnitTest
       - store_artifacts:
-          path: presentation/build/reports
+          path: app/build/reports
       - store_test_results:
-          path: presentation/build/test-results
+          path: app/build/test-results
       - run:
           name: Run Domain Module Unit Tests
           command: ./gradlew :domain:test
@@ -49,4 +49,4 @@ jobs:
           name: Run Lint Test
           command: ./gradlew lint
       - store_artifacts:
-          path: presentation/build/reports
+          path: app/build/reports
