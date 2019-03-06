@@ -51,8 +51,8 @@ jobs:
       - store_artifacts:
           path: app/build/reports
       - run:
-          name: Initial build
+          name: Release...
           command: ./gradlew clean assembleRelease --no-daemon --stacktrace
       - store_artifacts:
-          path: ~/app/build/outputs/apk/s/s
-          destination: apks/
+          path: app/build/outputs/apk/debug/
+          destination: artifact-file
